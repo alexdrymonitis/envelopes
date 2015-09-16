@@ -1,0 +1,87 @@
+#N canvas 174 22 883 752 10;
+#X obj 122 414 ggee/envgen 200 140 1 0  ;
+#N canvas 0 22 450 300 save_and_init 0;
+#X obj 154 36 inlet;
+#X obj 154 58 list prepend set;
+#X obj 154 80 list trim;
+#X msg 154 142 0 14.5 1 10 0.75 62 0.75 13.5 0;
+#X obj 154 164 outlet;
+#X obj 169 105 loadbang;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 5 0 3 0;
+#X restore 323 569 pd save_and_init;
+#X obj 120 587 hold_sustain 3;
+#X floatatom 201 610 5 0 0 0 - - -, f 5;
+#X text 238 611 last ramp time;
+#X obj 120 609 line~;
+#X obj 30 678 *~;
+#X obj 30 626 osc~;
+#X msg 160 355 dump;
+#X msg 195 355 duration 1000;
+#X obj 195 333 loadbang;
+#X msg 30 283 69 100;
+#X obj 30 315 unpack;
+#X obj 120 661 *~;
+#X obj 30 337 mtof;
+#X obj 135 638 / 127;
+#X obj 63 337 sel 0;
+#X obj 120 354 t b f;
+#X msg 99 283 69 0;
+#X obj 30 710 dac~;
+#X msg 63 359 0;
+#X text 27 263 note on;
+#X text 96 264 note off;
+#X obj 19 16 cnv 15 400 40 empty empty empty 20 12 0 14 -191765 -66577
+0;
+#X text 26 23 [hold_sustain]: abstraction to hold the last point of
+an envelope made with [ggee/envgen];
+#X text 25 67 [hold_sustain] will output all [line~] lists provided
+by [ggee/envgen] \, except from the very last one \, which it will
+hold until it receives 0 in its left inlet. It is designed in order
+to be able to use [ggee/envgen] but hold the sustain part of an ADSR
+envelope while you keep a key pressed (if used with a MIDI keyboard
+\, for example).;
+#X text 482 35 Arguments: the envelope point to hold \, starting from
+0;
+#X text 481 60 Inlets:;
+#X text 519 77 1st: lists from [ggee/envgen];
+#X text 520 94 2nd: envelope point to hold \, startin from 0 (overrides
+argument);
+#X text 487 132 Outlets:;
+#X text 527 152 1st: lists for [line~];
+#X text 528 173 2nd: last ramp time in milliseconds;
+#X text 25 202 This abstraction works with any kind of envelope \,
+even though an ADSR was the reason why I created it.;
+#X text 611 700 Written by Alexandros Drymonitis;
+#X text 24 153 It will also output the ramp time of the last ramp (the
+release part) in case you need to use it to control [switch~] \, for
+example.;
+#X text 494 247 TODO: make it possible to hold any point of the envelope
+\, not only the last.;
+#X connect 0 0 2 0;
+#X connect 0 1 1 0;
+#X connect 1 0 0 0;
+#X connect 2 0 5 0;
+#X connect 2 1 3 0;
+#X connect 5 0 13 0;
+#X connect 6 0 19 0;
+#X connect 6 0 19 1;
+#X connect 7 0 6 0;
+#X connect 8 0 0 0;
+#X connect 9 0 0 0;
+#X connect 10 0 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 12 1 16 0;
+#X connect 13 0 6 1;
+#X connect 14 0 7 0;
+#X connect 15 0 13 1;
+#X connect 16 0 20 0;
+#X connect 16 1 17 0;
+#X connect 17 0 0 0;
+#X connect 17 1 15 0;
+#X connect 18 0 12 0;
+#X connect 20 0 2 0;
